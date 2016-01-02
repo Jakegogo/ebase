@@ -1,0 +1,41 @@
+{
+  "name": "ebase",
+  "description": "ebase common module",
+  "main": "server.js",
+  "authors": [
+    "335923591@qq.com"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "ebase"
+  ],
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "1.4.3",
+    "angular": "1.4.3",
+    "font-awesome": "fontawesome#~4.4.0",
+    "toastr": "~2.1.2",
+    "angular-strap": "~2.3.3",
+    "angular-resource": "1.4.3",
+    "angular-sanitize": "1.4.3",
+    "bootstrap": "~3.3.5",
+    "requirejs": "~2.1.20",
+    "w5c-validator": "angular-w5c-validator#~2.4.3",
+    "ng-table": "~0.8.3",
+    "ckeditor": "4.5.4",
+    "codemirror": "5.8.0",
+    "ztree_v3": "~3.5.18",
+    "ionic": "~1.1.0",
+    "angular-ui-sortable": "~0.13.4",
+    "jquery-htmlclean": "1.4.0",
+    "js-beautify": "1.5.10"
+  }
+}
