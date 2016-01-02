@@ -7,10 +7,10 @@ var dependenciesConfig = [
     'ngResource',
     'ngSanitize',
     'ngTable',
-    'mgcrea.ngStrap',
-    'ui.sortable',
     'w5c.validator',
     'ng-breadcrumbs',
-    'xtools',
-    'ionic'
+    "ui.router",
+    'ui.sortable',
+    "ui.bootstrap",
+    "oc.lazyLoad",
 ];

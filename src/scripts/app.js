@@ -32,6 +32,13 @@ define([], function() {
 
     var app = angular.module('eBaseFront', dependenciesConfig);
 
+    /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
+    app.config(['$ocLazyLoadProvider', function($ocLazyLoadProvider) {
+        $ocLazyLoadProvider.config({
+            // global configs go here
+        });
+    }]);
+
     app.config(["w5cValidatorProvider",
         function(w5cValidatorProvider) {
             // 全局配置
