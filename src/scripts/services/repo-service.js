@@ -3,7 +3,7 @@ define(["app"], function (app) {
 
         var httpGet = function (url) {
             var defer = $q.defer();
-            url = xpath.api(url);
+            url = pathManager.api(url);
             $http.get(url).success(function (data, status, headers, config) {
                 defer.resolve(data);
             });
@@ -11,7 +11,7 @@ define(["app"], function (app) {
         }
 
         var httpPost = function (url, paramObj, onSuccess) {
-            url = xpath.api(url);
+            url = pathManager.api(url);
             var defer = $q.defer();
             if (angular.isUndefined(paramObj)) {
                 $http.post(url).success(function (data, status, headers, config) {
@@ -33,7 +33,7 @@ define(["app"], function (app) {
         }
 
         var httpPut = function (url, paramObj, onSuccess) {
-            url = xpath.api(url);
+            url = pathManager.api(url);
             var defer = $q.defer();
             (angular.isUndefined(paramObj) ? $http.put(url) : $http.put(url,angular.toJson(paramObj)))
             .success(function (data, status, headers, config) {
@@ -46,7 +46,7 @@ define(["app"], function (app) {
         }
 
         var postByXform = function (url, paramObj) {
-            url = xpath.api(url);
+            url = pathManager.api(url);
             var defer = $q.defer();
             $http.post(url, $.param(paramObj), {
                 headers: {

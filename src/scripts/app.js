@@ -11,13 +11,13 @@ define([], function() {
      */
     function setRoute(url, ctrl, reqJs, label) {
         var routeDef = {};
-        routeDef.templateUrl = xpath.res("view" + url + ".html?ran=" + Math.random());
+        routeDef.templateUrl = pathManager.res("view" + url + ".html?ran=" + Math.random());
         routeDef.controller = ctrl;
         routeDef.resolve = {
             load: ['$q', '$rootScope',
                 function($q, $rootScope) {
                     var defer = $q.defer();
-                    require([xpath.res("js/controllers") + reqJs],
+                    require([pathManager.res("js/controllers") + reqJs],
                         function() {
                             defer.resolve();
                             $rootScope.$apply();

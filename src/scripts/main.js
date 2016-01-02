@@ -1,7 +1,7 @@
 var apiRoot = "api/ebase/"; //API根路径
 var resRoot = ""; //静态资源根路径
 
-var xpath = {
+var pathManager = {
     api: function (path) {
         return apiRoot + path;
     },
