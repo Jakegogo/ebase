@@ -22,3 +22,6 @@
 5、项目目录结构
 	1）src为源码目录
 	2）dist为编译输出目录
+	
+6、提交到git
+	WebStorm开发环境可参考http://xupeixuan.iteye.com/blog/1850809
