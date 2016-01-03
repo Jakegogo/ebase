@@ -76,7 +76,7 @@ var server = http.createServer(function(req, res) {
     }
 
     if (pathname == '/') {
-        filePath = 'view/main.html';
+        filePath = 'main.html';
     } else {
         filePath = pathname;
     }
