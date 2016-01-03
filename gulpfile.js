@@ -35,6 +35,11 @@ gulp.task('scripts', function() {
         .pipe(gulp.dest('dist/js'));
 });
 
+gulp.task('conf', function() {
+    return gulp.src('src/conf/*')
+        .pipe(gulp.dest('dist/js/conf'));
+});
+
 gulp.task('vendor', function() {
     return gulp.src('src/vendor/**/*')
         .pipe(gulp.dest('dist/vendor'));
@@ -59,7 +64,7 @@ gulp.task('clean', function(cb) {
     del(['dist/*'], cb)
 });
 
-gulp.task('default', ['styles', 'scripts', 'images', 'bower', 'views', 'vendor', 'demo']);
+gulp.task('default', ['styles', 'scripts', 'images', 'bower', 'views', 'vendor', 'demo', 'conf']);
 
 // Watch
 gulp.task('watch', function() {
@@ -67,6 +72,8 @@ gulp.task('watch', function() {
     gulp.watch('src/styles/**/*.css', ['styles']);
     // Watch .js files
     gulp.watch('src/scripts/**/*.js', ['scripts']);
+    // Watch configure files
+    gulp.watch('src/conf/*.js', ['conf']);
     // Watch image files
     gulp.watch('src/images/**/*', ['images']);
     // Watch vendor files

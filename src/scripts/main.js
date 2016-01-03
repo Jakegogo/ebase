@@ -14,10 +14,13 @@ require.config({
     baseUrl: "js"
 });
 require([
+        "app",
         "services/util-service",
         "services/repo-service",
-        "directives/util-directive"
+        "directives/util-directive",
+        "directives/main-directive"
     ],
     function () {
         angular.bootstrap(document, [ "eBaseFront" ]);
     });
+
