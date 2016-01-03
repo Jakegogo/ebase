@@ -15,6 +15,8 @@ gulp.task('bower', function() {
         .pipe(gulp.dest('dist/vendor/font-awesome/fonts'));
     gulp.src('bower_components/bootstrap/fonts/*')
         .pipe(gulp.dest('dist/vendor/bootstrap/dist/fonts'));
+    gulp.src('bower_components/simple-line-icons/fonts/*')
+        .pipe(gulp.dest('dist/vendor/simple-line-icons/fonts/'));
     gulp.src('bower_components/ionic/release/css/ionic.css')
         .pipe(cssWrap({
             selector: '.app-wrap'
