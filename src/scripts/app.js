@@ -1,35 +1,6 @@
 'use strict';
 define([], function() {
 
-    /**
-     * 路由设置函数，所以这里定义setRoute
-     *
-     * @param {[type]}　url [模块相对路径]
-     * @param {[type]}　ctrl [Controller名称]
-     * @param {[type]}　reqJs [模块对应的控制器JS文件]
-     * @param {[type]}　label [标签，对应于导航条]
-     */
-    function setRoute(url, ctrl, reqJs, label) {
-        var routeDef = {};
-        routeDef.templateUrl = pathManager.res("view" + url + ".html?ran=" + Math.random());
-        routeDef.controller = ctrl;
-        routeDef.resolve = {
-            load: ['$q', '$rootScope',
-                function($q, $rootScope) {
-                    var defer = $q.defer();
-                    require([pathManager.res("js/controllers") + reqJs],
-                        function() {
-                            defer.resolve();
-                            $rootScope.$apply();
-                        });
-                    return defer.promise;
-                }
-            ]
-        };
-        routeDef.label = label;
-        return routeDef;
-    }
-
     var app = angular.module('eBaseFront', dependenciesConfig);
 
     /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
@@ -132,13 +103,15 @@ define([], function() {
     app.controller('AppController', ['$scope', '$rootScope', function($scope, $rootScope) {
         $scope.$on('$viewContentLoaded', function() {
             App.initComponents(); // init core components
-            //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if the partials included in server side instead of loading with ng-include directive
+            //Layout.init(); //  Init entire layout(header, footer, sidebar, etc) on page load if
+            // the partials included in server side instead of loading with ng-include directive
         });
     }]);
 
     /***
      Layout Partials.
-     By default the partials are loaded through AngularJS ng-include directive. In case they loaded in server side(e.g: PHP include function) then below partial
+     By default the partials are loaded through AngularJS ng-include directive.
+     In case they loaded in server side(e.g: PHP include function) then below partial
      initialization can be disabled and Layout.init() should be called on page load complete as explained above.
      ***/
 
@@ -182,28 +155,27 @@ define([], function() {
     /* Setup Rounting For All Pages */
     app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
         // Redirect any unmatched url
-        $urlRouterProvider.otherwise("/dashboard.html");
+        $urlRouterProvider.otherwise("/dashboard");
 
-        $stateProvider
-
-        // Dashboard
-            .state('dashboard', {
-                url: "/dashboard.html",
-                templateUrl: "view/dashboard.html",
-                data: {pageTitle: 'Admin Dashboard Template'},
-                controller: "DashboardController",
+        angular.forEach(routeConfig, function(value, key) {
+            $stateProvider.state(value.path, {
+                url: value.path,
+                templateUrl: "view/" + value.html,
+                data: {pageTitle: value.name},
+                controller: value.controller,
                 resolve: {
                     deps: ['$ocLazyLoad', function($ocLazyLoad) {
                         return $ocLazyLoad.load({
-                            name: 'MetronicApp',
-                            insertBefore: '#ng_load_plugins_before', // load the above css files before a LINK element with this ID. Dynamic CSS files must be loaded between core and theme css files
-                            files: [
-                                'js/controllers/DashboardController.js',
-                            ]
+                            name: 'eBaseFront',
+                            // load the above css files before a LINK element with this ID.
+                            // Dynamic CSS files must be loaded between core and theme css files
+                            insertBefore: '#ng_load_plugins_before',
+                            files: value.files
                         });
                     }]
                 }
             })
+        })
 
 
     }]);
@@ -213,6 +185,6 @@ define([], function() {
         $rootScope.$state = $state; // state to be accessed from view
         $rootScope.$settings = settings; // state to be accessed from view
     }]);
-
+    
     return app;
 });

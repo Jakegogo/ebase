@@ -6,5 +6,5 @@
  * @type {*[]}
  */
 var routeConfig = [
-{name:'用户管理',path:'/user',html:'/user/index.html',js:'/user/index.js'},
+{name:'欢迎界面', path:'/dashboard', html:'dashboard.html', files:['js/controllers/DashboardController.js'], controller: "DashboardController"},
 ]
