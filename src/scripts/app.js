@@ -105,6 +105,12 @@ define([], function() {
     app.run(["$rootScope", "settings", "$state", function($rootScope, settings, $state) {
         $rootScope.$state = $state; // state to be accessed from view
         $rootScope.$settings = settings; // state to be accessed from view
+        $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+            event.targetScope.$watch('$viewContentLoaded', function(){
+                // initialize core components
+                App.initAjax();
+            });
+        })
     }]);
 
     return app;
