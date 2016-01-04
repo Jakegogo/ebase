@@ -39,9 +39,9 @@ require.config({
 
 // 加载自定义依赖库
 require([
-        "app",
+        "controllers/mainController",
         "services/util-service",
-        "services/repo-service",
+        "services/rest-service",
         "directives/util-directive",
         "directives/main-directive"
     ],

@@ -32,7 +32,7 @@ define(["app"], function (app) {
          * @param otherParam {Object} 自定义参数
          * @returns {{count: *, page: *, sorts: *, params: *}}
          */
-        var buildQueryParam = function (tblParam, otherParam) {
+        var buildTableQueryParam = function (tblParam, otherParam) {
             return {
                 count: tblParam.count(),
                 page: tblParam.page(),
@@ -196,7 +196,7 @@ define(["app"], function (app) {
 
         return {
             selectedIds: selectedIds,
-            buildQueryParam: buildQueryParam,
+            buildQueryParam: buildTableQueryParam,
             hideModal: hideModal,
             commonModal: commonModal,
             templateModal: templateModal,
