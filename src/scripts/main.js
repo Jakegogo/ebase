@@ -39,13 +39,15 @@ require.config({
 
 // 加载自定义依赖库
 require([
-        "controllers/mainController",
+        "app",
         "services/util-service",
         "services/rest-service",
         "directives/util-directive",
         "directives/main-directive"
     ],
-    function () {
-        angular.bootstrap(document, [ "eBaseFront" ]);
+function () {
+    require(["controllers/mainController"], function () {
+        angular.bootstrap(document, ["eBaseFront"]);
     });
+});
 

@@ -84,6 +84,7 @@ define([], function() {
             })
         })
 
+
     }]);
 
     /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
@@ -105,6 +106,6 @@ define([], function() {
         $rootScope.$state = $state; // state to be accessed from view
         $rootScope.$settings = settings; // state to be accessed from view
     }]);
-    
+
     return app;
 });
