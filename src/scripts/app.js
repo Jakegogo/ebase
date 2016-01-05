@@ -60,10 +60,12 @@ define([], function () {
                 }];
             }
             $stateProvider.state(value.path, {
+                title: value.name,
                 url: value.path,
                 templateUrl: "view/" + value.html,
                 data: {pageTitle: value.name},
                 controller: value.controller,
+                caseInsensitiveMatch: false,
                 resolve: resolves
             })
         })
