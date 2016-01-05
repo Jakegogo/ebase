@@ -36,22 +36,35 @@ define([], function () {
         $urlRouterProvider.otherwise("/dashboard");
 
         angular.forEach(routeConfig, function (value, key) {
-            $stateProvider.state(value.name, {
+            var resolves = {
+                loadModule: ['$ocLazyLoad', '$q', function ($ocLazyLoad, $q) {
+                    // 加载requirejs文件
+                    var deferred = $q.defer();
+                    require(value.requireJs, function () {
+                        $ocLazyLoad.inject('eBaseFront');
+                        deferred.resolve();
+                    });
+                    return deferred.promise;
+                }]
+            };
+            if (value.files && value.files.length > 0) {
+                resolves.deps = ['$ocLazyLoad', function ($ocLazyLoad) {
+                    // 加载其它文件
+                    return $ocLazyLoad.load({
+                        name: 'eBaseFront',
+                        // load the above css files before a LINK element with this ID.
+                        // Dynamic CSS files must be loaded between core and theme css files
+                        insertBefore: '#ng_load_plugins_before',
+                        files: value.files
+                    });
+                }];
+            }
+            $stateProvider.state(value.path, {
                 url: value.path,
                 templateUrl: "view/" + value.html,
                 data: {pageTitle: value.name},
                 controller: value.controller,
-                resolve: {
-                    deps: ['$ocLazyLoad', function ($ocLazyLoad) {
-                        return $ocLazyLoad.load({
-                            name: 'eBaseFront',
-                            // load the above css files before a LINK element with this ID.
-                            // Dynamic CSS files must be loaded between core and theme css files
-                            insertBefore: '#ng_load_plugins_before',
-                            files: value.files
-                        });
-                    }]
-                }
+                resolve: resolves
             })
         })
 
