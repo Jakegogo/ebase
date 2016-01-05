@@ -5,25 +5,6 @@
  END: BREAKING CHANGE in AngularJS v1.3.x:
  *********************************************/
 define(['app'], function (app) {
-    /* Setup global settings */
-    app.factory('settings', ['$rootScope', function ($rootScope) {
-        // supported languages
-        var settings = {
-            layout: {
-                pageSidebarClosed: false, // sidebar menu state
-                pageContentWhite: true, // set page content layout
-                pageBodySolid: false, // solid body color state
-                pageAutoScrollOnLoad: 1000 // auto scroll to top on page load
-            },
-            assetsPath: '../vendor/themes',
-            globalPath: '../vendor/themes/global',
-            layoutPath: '../vendor/themes/layouts/layout2',
-        };
-
-        $rootScope.settings = settings;
-
-        return settings;
-    }]);
 
     /* Setup App Main Controller */
     app.controller('AppController', ['$scope', '$rootScope', function ($scope, $rootScope) {
