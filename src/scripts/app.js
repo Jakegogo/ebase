@@ -26,7 +26,6 @@ define([], function () {
     /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
     app.config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider) {
         $ocLazyLoadProvider.config({
-            jsLoader: requirejs, //使用requirejs去加载文件
             debug: true
         });
     }]);
@@ -55,7 +54,6 @@ define([], function () {
                 }
             })
         })
-
 
     }]);
 
@@ -135,7 +133,7 @@ define([], function () {
 
     });
 
-    app.bootstrap = function () {
+    app.start = function () {
         angular.bootstrap(document, ['eBaseFront']);
     };
 

@@ -14,5 +14,5 @@ require([
     "directives/main-directive",
     "controllers/mainController"
 ], function (app) {
-    app.bootstrap();
+    app.start();
 });

@@ -2,17 +2,6 @@ define(["app"], function (app) {
     var restService = function ($http, $q, util) {
 
         /**
-         * API根路径
-         * @type {string}
-         */
-        var apiRoot = "api/ebase/";
-        /**
-         * 静态资源根路径
-         * @type {string}
-         */
-        var resRoot = "";
-
-        /**
          * 路径配置管理
          * @type {{api: pathManager.api, res: pathManager.res}}
          */
@@ -23,7 +12,7 @@ define(["app"], function (app) {
              * @returns {string}
              */
             api: function (path) {
-                return apiRoot + path;
+                return serverConfig.apiRoot + path;
             },
             /**
              * 获取静态资源路径
@@ -31,7 +20,7 @@ define(["app"], function (app) {
              * @returns {string}
              */
             res: function (path) {
-                return resRoot + path;
+                return serverConfig.resRoot + path;
             }
         }
 
@@ -109,6 +98,10 @@ define(["app"], function (app) {
         }
 
         return {
+            /**
+             * 路径配置管理
+             * @type {{api: pathManager.api, res: pathManager.res}}
+             */
             pathManager: pathManager,
             /**
              * GET请求
@@ -146,7 +139,7 @@ define(["app"], function (app) {
              * @returns {defer.promise}
              */
             query: function (opts, params) {
-                return this.queryByPath(opts, opts.url + "/list", params, opts.showName);
+                return this.queryByPath(opts.url + "/list", params, opts.showName);
             },
             /**
              * 通用新增
