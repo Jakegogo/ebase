@@ -67,7 +67,7 @@
             <div data-ng-include="'view/tpl/theme-panel.html'" data-ng-controller="ThemePanelController" class="theme-panel hidden-xs hidden-sm"> </div>
             <!-- END STYLE CUSTOMIZER -->
             <!-- BEGIN ACTUAL CONTENT -->
-            <div ui-view class="fade-in-up"> </div>
+            <div ui-view class="fade-in-up" id="viewContext"> </div>
             <!-- END ACTUAL CONTENT -->
         </div>
     </div>
@@ -114,7 +114,6 @@
 <!-- angularjs插件结束 -->
 <!-- 配置文件开始 -->
 <script src="js/conf/server.config.js" type="text/javascript"></script>
-<script src="js/conf/dependencies.config.js" type="text/javascript"></script>
 <script src="js/conf/route.config.js" type="text/javascript"></script>
 <script src="js/conf/validator.config.js" type="text/javascript"></script>
 <!-- 主文件 -->

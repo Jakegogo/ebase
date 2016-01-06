@@ -1,7 +1,30 @@
 
 define([], function () {
 
+    /**
+     * 模块依赖配置
+     * @type {Array}
+     */
+    var dependenciesConfig = [
+        'ngResource',
+        'ngSanitize',
+        'ngTable',
+        'w5c.validator',
+        "ui.router",
+        'ui.sortable',
+        "ui.bootstrap",
+        "oc.lazyLoad"
+    ];
+
     var app = angular.module('eBaseFront', dependenciesConfig);
+
+
+    /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
+    app.config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider) {
+        $ocLazyLoadProvider.config({
+            debug: true
+        });
+    }]);
 
     /* Setup global settings */
     app.factory('settings', ['$rootScope', function ($rootScope) {
@@ -21,13 +44,6 @@ define([], function () {
         $rootScope.settings = settings;
 
         return settings;
-    }]);
-
-    /* Configure ocLazyLoader(refer: https://github.com/ocombe/ocLazyLoad) */
-    app.config(['$ocLazyLoadProvider', function ($ocLazyLoadProvider) {
-        $ocLazyLoadProvider.config({
-            debug: true
-        });
     }]);
 
     /* 页面路由配置 */
@@ -66,7 +82,8 @@ define([], function () {
                 data: {pageTitle: value.name},
                 controller: value.controller,
                 caseInsensitiveMatch: false,
-                resolve: resolves
+                resolve: resolves,
+                depends:value.depends || []
             })
         })
 
@@ -80,17 +97,6 @@ define([], function () {
         $controllerProvider.allowGlobals();
     }]);
 
-    /* Init global settings and run the app */
-    app.run(["$rootScope", "settings", "$state", function ($rootScope, settings, $state) {
-        $rootScope.$state = $state; // state to be accessed from view
-        $rootScope.$settings = settings; // state to be accessed from view
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            event.targetScope.$watch('$viewContentLoaded', function () {
-                // initialize core components
-                App.initAjax();
-            });
-        })
-    }]);
 
     // 表单验证全局配置
     app.config(["w5cValidatorProvider",
@@ -147,6 +153,20 @@ define([], function () {
         });
 
     });
+
+    /* Init global settings and run the app */
+    app.run(["$rootScope", "settings", "$state", "$timeout", function ($rootScope, settings, $state, $timeout) {
+        $rootScope.$state = $state; // state to be accessed from view
+        $rootScope.$settings = settings; // state to be accessed from view
+        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+            event.targetScope.$watch('$viewContentLoaded', function () {
+                // initialize core components
+                $timeout(function(){
+                    App.initAjax();
+                });
+            });
+        })
+    }]);
 
     app.start = function () {
         angular.bootstrap(document, ['eBaseFront']);
