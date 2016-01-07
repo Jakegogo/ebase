@@ -154,18 +154,31 @@ define([], function () {
 
     });
 
+    // 添加渲染皮肤切面处理
+    //app.config(function ($controllerProvider, $provide) {
+    //    $provide.decorator('$rootScope', function ($delegate) {
+    //        var barBackup = $delegate.$apply;
+    //        $delegate.$apply = function () {
+    //            barBackup.apply($delegate, arguments);
+    //            App.initAjax();// 渲染皮肤
+    //            console.log('called $apply ' + $delegate.$id);
+    //        };
+    //        return $delegate;
+    //    });
+    //});
+
     /* Init global settings and run the app */
     app.run(["$rootScope", "settings", "$state", "$timeout", function ($rootScope, settings, $state, $timeout) {
         $rootScope.$state = $state; // state to be accessed from view
         $rootScope.$settings = settings; // state to be accessed from view
-        $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-            event.targetScope.$watch('$viewContentLoaded', function () {
-                // initialize core components
-                $timeout(function(){
-                    App.initAjax();
-                });
-            });
-        })
+        //$rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+        //    event.targetScope.$watch('$viewContentLoaded', function () {
+        //        // initialize core components
+        //        $timeout(function(){
+        //            App.initAjax();
+        //        });
+        //    });
+        //})
     }]);
 
     app.start = function () {

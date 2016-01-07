@@ -32,6 +32,9 @@ define(['app'], function (app) {
             $scope.user.roles.splice(0, $scope.user.roles.length);
             $scope.user.roles.push('guest');
         };
+        $scope.addItem = function() {
+            $scope.roles.push(Math.round(Math.random()*100));
+        }
 
     });
 });

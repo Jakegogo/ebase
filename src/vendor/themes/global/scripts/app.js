@@ -130,55 +130,6 @@ var App = function() {
             }
         });
 
-        $('body').on('click', '.portlet > .portlet-title > .tools > a.reload', function(e) {
-            e.preventDefault();
-            var el = $(this).closest(".portlet").children(".portlet-body");
-            var url = $(this).attr("data-url");
-            var error = $(this).attr("data-error-display");
-            if (url) {
-                App.blockUI({
-                    target: el,
-                    animate: true,
-                    overlayColor: 'none'
-                });
-                $.ajax({
-                    type: "GET",
-                    cache: false,
-                    url: url,
-                    dataType: "html",
-                    success: function(res) {
-                        App.unblockUI(el);
-                        el.html(res);
-                        App.initAjax() // reinitialize elements & plugins for newly loaded content
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        App.unblockUI(el);
-                        var msg = 'Error on reloading the content. Please check your connection and try again.';
-                        if (error == "toastr" && toastr) {
-                            toastr.error(msg);
-                        } else if (error == "notific8" && $.notific8) {
-                            $.notific8('zindex', 11500);
-                            $.notific8(msg, {
-                                theme: 'ruby',
-                                life: 3000
-                            });
-                        } else {
-                            alert(msg);
-                        }
-                    }
-                });
-            } else {
-                // for demo purpose
-                App.blockUI({
-                    target: el,
-                    animate: true,
-                    overlayColor: 'none'
-                });
-                window.setTimeout(function() {
-                    App.unblockUI(el);
-                }, 1000);
-            }
-        });
 
         // load ajax data on page init
         $('.portlet .portlet-title a.reload[data-load="true"]').click();
@@ -600,21 +551,21 @@ var App = function() {
 
             //UI Component handlers     
             handleMaterialDesign(); // handle material design       
-            handleUniform(); // hanfle custom radio & checkboxes
-            handleiCheck(); // handles custom icheck radio and checkboxes
-            handleBootstrapSwitch(); // handle bootstrap switch plugin
-            handleScrollers(); // handles slim scrolling contents 
-            handleFancybox(); // handle fancy box
-            handleSelect2(); // handle custom Select2 dropdowns
-            handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
+        //    handleUniform(); // hanfle custom radio & checkboxes
+        //    handleiCheck(); // handles custom icheck radio and checkboxes
+        //    handleBootstrapSwitch(); // handle bootstrap switch plugin
+        //    handleScrollers(); // handles slim scrolling contents
+        //    handleFancybox(); // handle fancy box
+        //    handleSelect2(); // handle custom Select2 dropdowns
+        //    handlePortletTools(); // handles portlet action bar functionality(refresh, configure, toggle, remove)
             handleAlerts(); //handle closabled alerts
-            handleDropdowns(); // handle dropdowns
+        //    handleDropdowns(); // handle dropdowns
             handleTabs(); // handle tabs
-            handleTooltips(); // handle bootstrap tooltips
-            handlePopovers(); // handles bootstrap popovers
-            handleAccordions(); //handles accordions 
+        //    handleTooltips(); // handle bootstrap tooltips
+        //    handlePopovers(); // handles bootstrap popovers
+        //    handleAccordions(); //handles accordions
             handleModals(); // handle modals
-            handleBootstrapConfirmation(); // handle bootstrap confirmations
+        //    handleBootstrapConfirmation(); // handle bootstrap confirmations
             handleTextareaAutosize(); // handle autosize textareas
             handleCounterup(); // handle counterup instances
 
@@ -627,18 +578,18 @@ var App = function() {
 
         //main function to initiate core javascript after ajax complete
         initAjax: function() {
-            handleUniform(); // handles custom radio & checkboxes     
-            handleiCheck(); // handles custom icheck radio and checkboxes
-            handleBootstrapSwitch(); // handle bootstrap switch plugin
-            handleDropdownHover(); // handles dropdown hover       
-            handleScrollers(); // handles slim scrolling contents 
-            handleSelect2(); // handle custom Select2 dropdowns
-            handleFancybox(); // handle fancy box
-            handleDropdowns(); // handle dropdowns
-            handleTooltips(); // handle bootstrap tooltips
-            handlePopovers(); // handles bootstrap popovers
-            handleAccordions(); //handles accordions 
-            handleBootstrapConfirmation(); // handle bootstrap confirmations
+            //handleUniform(); // handles custom radio & checkboxes
+            //handleiCheck(); // handles custom icheck radio and checkboxes
+            //handleBootstrapSwitch(); // handle bootstrap switch plugin
+            //handleDropdownHover(); // handles dropdown hover
+            //handleScrollers(); // handles slim scrolling contents
+            //handleSelect2(); // handle custom Select2 dropdowns
+            //handleFancybox(); // handle fancy box
+            //handleDropdowns(); // handle dropdowns
+            //handleTooltips(); // handle bootstrap tooltips
+            //handlePopovers(); // handles bootstrap popovers
+            //handleAccordions(); //handles accordions
+            //handleBootstrapConfirmation(); // handle bootstrap confirmations
         },
 
         //init main components 
