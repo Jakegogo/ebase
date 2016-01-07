@@ -52,6 +52,22 @@ define(['app'], function (app) {
                         e.preventDefault(); // prevent link click for above criteria
                     });
                 }
+                if (elem.hasClass('fancybox-button')) {
+                    if (!jQuery.fancybox) {
+                        return;
+                    }
+                    $(elem).fancybox({
+                        groupAttr: 'data-rel',
+                        prevEffect: 'none',
+                        nextEffect: 'none',
+                        closeBtn: true,
+                        helpers: {
+                            title: {
+                                type: 'inside'
+                            }
+                        }
+                    });
+                }
             }
         };
     });
@@ -81,11 +97,11 @@ define(['app'], function (app) {
                 if (attrs['type'] != 'checkbox' && attrs['type'] != 'radio') {
                     return;
                 }
-                if ($(elem).is('.icheck')) {
+                if (elem.hasClass('.icheck')) {
                     if (!$().iCheck) {
                         return;
                     }
-                    $('.icheck').each(function() {
+                    $(elem).each(function () {
                         var checkboxClass = $(this).attr('data-checkbox') ? $(this).attr('data-checkbox') : 'icheckbox_minimal-grey';
                         var radioClass = $(this).attr('data-radio') ? $(this).attr('data-radio') : 'iradio_minimal-grey';
 
@@ -102,6 +118,11 @@ define(['app'], function (app) {
                             });
                         }
                     });
+                } else if(elem.hasClass('make-switch')) {
+                    if (!$().bootstrapSwitch) {
+                        return;
+                    }
+                    $(elem).bootstrapSwitch();
                 } else {
                     if (!$().uniform) {
                         return;
@@ -213,6 +234,23 @@ define(['app'], function (app) {
         };
     });
 
+
+    // Handle Select2 Dropdowns
+    app.directive('select2me', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, elem, attrs) {
+                if ($().select2) {
+                    $.fn.select2.defaults.set("theme", "bootstrap");
+                    $('.select2me').select2({
+                        placeholder: "Select",
+                        width: 'auto',
+                        allowClear: true
+                    });
+                }
+            }
+        };
+    });
 
 
 });

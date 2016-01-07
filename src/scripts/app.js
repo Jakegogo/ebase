@@ -13,7 +13,8 @@ define([], function () {
         "ui.router",
         'ui.sortable',
         "ui.bootstrap",
-        "oc.lazyLoad"
+        "oc.lazyLoad",
+        "ncy-angular-breadcrumb"
     ];
 
     var app = angular.module('eBaseFront', dependenciesConfig);
@@ -83,7 +84,11 @@ define([], function () {
                 controller: value.controller,
                 caseInsensitiveMatch: false,
                 resolve: resolves,
-                depends:value.depends || []
+                depends:value.depends || [],
+                ncyBreadcrumb: {
+                    label: value.name,
+                    parent:value.parent
+                }
             })
         })
 
@@ -111,7 +116,8 @@ define([], function () {
         }
     ]);
 
-    app.config(function ($controllerProvider, $provide, $httpProvider) {
+    app.config(['$controllerProvider', '$provide', '$httpProvider',
+        function ($controllerProvider, $provide, $httpProvider) {
         app.register = {
             controller: $controllerProvider.register,
             factory: $provide.factory,
@@ -152,7 +158,12 @@ define([], function () {
             };
         });
 
-    });
+    }]);
+
+
+    app.config(['$breadcrumbProvider', function($breadcrumbProvider) {
+
+    }]);
 
     // 添加渲染皮肤切面处理
     //app.config(function ($controllerProvider, $provide) {

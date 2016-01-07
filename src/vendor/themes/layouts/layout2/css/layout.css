@@ -1166,6 +1166,9 @@ Page content
 .page-bar {
   padding: 0px;
   background-color: #ffffff;
+  margin-left: -15px;
+  margin-right: -15px;
+  height: 35px;
   margin-bottom: 20px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -1255,7 +1258,7 @@ Page content
       margin-left: 195px;
       margin-top: 0px;
       min-height: 600px;
-      padding: 25px 20px 10px 20px; }
+      padding: 5px 20px 10px 20px; }
       .page-content-wrapper .page-content.no-min-height {
         min-height: auto; }
       .page-sidebar-fixed.page-sidebar-hover-on .page-content-wrapper .page-content {
@@ -1455,7 +1458,7 @@ Theme Panel
 ***/
 .theme-panel {
   width: 400px;
-  margin-top: -15px;
+  margin-top: 40px;
   margin-right: 0px;
   z-index: 100;
   float: right;
@@ -1910,3 +1913,8 @@ Page Loading
   .page-on-load > .clearfix {
     display: none;
     transition: all 2s; }
+
+  .breadcrumb {
+    background-color:transparent;
+    margin-bottom: 0;
+  }

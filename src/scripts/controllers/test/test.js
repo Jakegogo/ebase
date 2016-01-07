@@ -1,5 +1,7 @@
 define(['app'], function (app) {
-    app.controller('TestController', function($rootScope, $scope, $http, $timeout) {
+    app.controller('TestController',
+        ['$rootScope', '$scope', '$http', '$timeout',
+        function($rootScope, $scope, $http, $timeout) {
         // set sidebar closed and body solid layout mode
         $scope.aa = 3;
 
@@ -36,5 +38,5 @@ define(['app'], function (app) {
             $scope.roles.push(Math.round(Math.random()*100));
         }
 
-    });
+    }]);
 });
