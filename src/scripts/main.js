@@ -12,6 +12,7 @@ require([
     "services/rest-service",
     "directives/util-directive",
     "directives/main-directive",
+    "filters/main-filter",
     "controllers/mainController"
 ], function (app) {
     app.start();

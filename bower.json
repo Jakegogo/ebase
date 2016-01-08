@@ -45,6 +45,8 @@
     "jquery.cookie":"1.4.1",
     "font-awesome":"*",
     "simple-line-icons":"2.2.3",
-    "checklist-model":"0.9.0"
+    "checklist-model":"0.9.0",
+    "angular-translate":"2.8.1",
+    "angular-translate-loader-static-files":"2.8.1"
   }
 }

@@ -39,7 +39,12 @@ gulp.task('scripts', function() {
 
 gulp.task('conf', function() {
     return gulp.src('src/conf/*')
-        .pipe(gulp.dest('dist/js/conf'));
+        .pipe(gulp.dest('dist/conf'));
+});
+
+gulp.task('i18n', function() {
+    return gulp.src('src/i18n/*')
+        .pipe(gulp.dest('dist/i18n'));
 });
 
 gulp.task('vendor', function() {
@@ -68,7 +73,7 @@ gulp.task('clean', function(cb) {
     del(['dist/*'], cb)
 });
 
-gulp.task('default', ['styles', 'scripts', 'images', 'bower', 'views', 'vendor', 'demo', 'conf']);
+gulp.task('default', ['styles', 'scripts', 'images', 'bower', 'views', 'vendor', 'demo', 'conf', 'i18n']);
 
 // Watch
 gulp.task('watch', function() {

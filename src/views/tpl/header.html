@@ -69,6 +69,14 @@
         <!-- BEGIN TOP NAVIGATION MENU -->
         <div class="top-menu">
             <ul class="nav navbar-nav pull-right">
+                <li class="dropdown dropdown-extended dropdown-notification">
+                    <div class="dropdown-toggle">
+                        <select class="language-switching" style="border: none;" ng-controller="LanguageSwitchingCtrl" ng-model="cur_lang" ng-change="switching(cur_lang)">
+                            <option value="en">English</option>
+                            <option value="cn">简体中文</option>
+                        </select>
+                    </div>
+                </li>
                 <!-- BEGIN NOTIFICATION DROPDOWN -->
                 <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
                 <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">

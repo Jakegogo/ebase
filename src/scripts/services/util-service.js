@@ -1,5 +1,5 @@
 define(["app"], function (app) {
-    var utilService = function ($rootScope, $modal, $location, $q) {
+    var utilService = function ($rootScope, $modal, $location, $q, $translate) {
 
         var confirmScope = $rootScope.$new();
 
@@ -194,6 +194,18 @@ define(["app"], function (app) {
             return defer.promise;
         }
 
+        /**
+         * 国际化翻译
+         * @param key KEY
+         * @returns {string}
+         */
+        var translate = function(key) {
+            if(key){
+                return $translate.instant(key);
+            }
+            return key;
+        }
+
         return {
             selectedIds: selectedIds,
             buildQueryParam: buildTableQueryParam,
@@ -203,7 +215,8 @@ define(["app"], function (app) {
             procModal: procModal,
             confirm: confirmModal,
             proccessModal: proccessModal,
+            translate: translate
         };
     };
-    app.factory("utilService", ["$rootScope", "$modal", '$location', '$q', utilService]);
+    app.factory("utilService", ["$rootScope", "$modal", '$location', '$q', '$translate', utilService]);
 });

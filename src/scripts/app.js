@@ -14,7 +14,8 @@ define([], function () {
         'ui.sortable',
         "ui.bootstrap",
         "oc.lazyLoad",
-        "ncy-angular-breadcrumb"
+        "ncy-angular-breadcrumb",
+        "pascalprecht.translate"
     ];
 
     var app = angular.module('eBaseFront', dependenciesConfig);
@@ -115,6 +116,16 @@ define([], function () {
             w5cValidatorProvider.setRules(validatorConfig);
         }
     ]);
+
+    // 配置国际化文件
+    app.config(['$translateProvider',function($translateProvider){
+        var lang = window.localStorage.lang || 'cn';
+        $translateProvider.preferredLanguage(lang);
+        $translateProvider.useStaticFilesLoader({
+            prefix: '/i18n/',
+            suffix: '.json'
+        });
+    }]);
 
     app.config(['$controllerProvider', '$provide', '$httpProvider',
         function ($controllerProvider, $provide, $httpProvider) {
