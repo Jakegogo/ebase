@@ -6,7 +6,7 @@
  * @param controller controller名称
  * @param files 其它文件(如css)
  * @param depends angular模块依赖
- * @param parent 父菜单
+ * @param parent 父菜单(可选,默认会根据url进行判断)
  * @type {*[]}
  */
 var routeConfig = [

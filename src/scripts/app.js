@@ -122,7 +122,7 @@ define([], function () {
         var lang = window.localStorage.lang || 'cn';
         $translateProvider.preferredLanguage(lang);
         $translateProvider.useStaticFilesLoader({
-            prefix: '/i18n/',
+            prefix: 'i18n/',
             suffix: '.json'
         });
     }]);

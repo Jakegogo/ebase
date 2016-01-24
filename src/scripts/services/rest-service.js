@@ -79,6 +79,26 @@ define(["app"], function (app) {
         }
 
         /*
+         * REMOVE请求
+         * @param url
+         * @param paramObj
+         * @param onSuccess
+         * @returns {*}
+         */
+        var httpRemove = function (url, paramObj, onSuccess) {
+            url = pathManager.api(url);
+            var defer = $q.defer();
+            (angular.isUndefined(paramObj) ? $http.remove(url) : $http.remove(url,angular.toJson(paramObj)))
+                .success(function (data, status, headers, config) {
+                    if (angular.isDefined(onSuccess)) {
+                        onSuccess(data, status, headers, config);
+                    }
+                    defer.resolve(data);
+                });
+            return defer.promise;
+        }
+
+        /*
          * POST BY URL ENCODE请求
          * @param url
          * @param paramObj
@@ -108,7 +128,7 @@ define(["app"], function (app) {
              * @param url 请求url
              * @returns {defer.promise}
              */
-            get: httpGet,
+            httpGet: httpGet,
             /**
              * POST请求
              * @param url 请求url
@@ -116,7 +136,7 @@ define(["app"], function (app) {
              * @param onSuccess(data, status, headers, config) 成功回调
              * @returns {defer.promise}
              */
-            post: httpPost,
+            httpPost: httpPost,
             /**
              * PUT请求
              * @param url 请求url
@@ -124,7 +144,7 @@ define(["app"], function (app) {
              * @param onSuccess(data, status, headers, config) 成功回调
              * @returns {defer.promise}
              */
-            put: httpPut,
+            httpPut: httpPut,
             /**
              * POST BY URL ENCODE请求
              * @param url 请求url
@@ -142,13 +162,22 @@ define(["app"], function (app) {
                 return this.queryByPath(opts.url + "/list", params, opts.showName);
             },
             /**
+             * 分页查询
+             * @param opts {url:rest地址,showName:实体名称}
+             * @param params 查询参数
+             * @returns {defer.promise}
+             */
+            page: function (opts, params) {
+                return this.queryByPath(opts.url + "/page", params, opts.showName);
+            },
+            /**
              * 通用新增
              * @param opts {url:rest地址,showName:实体名称}
              * @param obj 新增对象
              * @returns {defer.promise}
              */
             add: function (opts, obj) {
-                return this.saveByPath(opts.url + "/save", obj, opts.showName, "新增");
+                return this.saveByPath(opts.url, obj, opts.showName, "新增");
             },
             /**
              * 通用更新
@@ -157,7 +186,16 @@ define(["app"], function (app) {
              * @returns {defer.promise}
              */
             update: function (opts, obj) {
-                return this.saveByPath(opts.url + "/save", obj, opts.showName, "更新");
+                return this.saveByPath(opts.url, obj, opts.showName, "更新");
+            },
+            /**
+             * 通用保存
+             * @param opts {url:rest地址,showName:实体名称}
+             * @param obj 更新对象
+             * @returns {defer.promise}
+             */
+            save: function (opts, obj) {
+                return this.saveByPath(opts.url, obj, opts.showName, "保存");
             },
             /**
              * 通用删除
@@ -188,7 +226,7 @@ define(["app"], function (app) {
                     defer.reject();
                     return defer.promise;
                 }
-                return this.removeByPath(opts.url + "/del", ids, opts.showName, defer);
+                return this.removeByPath(opts.url, ids, opts.showName, defer);
             },
             /**
              * 保存
@@ -200,7 +238,7 @@ define(["app"], function (app) {
              */
             saveByPath: function (url, obj, showName, action) {
                 var defer = $q.defer();
-                httpPost(url, obj, function (data, status, headers, config) {
+                httpPut(url, obj, function (data, status, headers, config) {
                     if (util.isRespOK(data)) {
                         defer.resolve(data);
                         toastr.success(action + showName + "成功。");
@@ -221,7 +259,7 @@ define(["app"], function (app) {
              */
             removeByPath: function (url, ids, showName, defer) {
                 util.confirm("确定删除所选" + showName + "？", function () {
-                    httpPost(url, ids, function (data, status, headers, config) {
+                    httpRemove(url, ids, function (data, status, headers, config) {
                         if (util.isRespOK(data)) {
                             defer && defer.resolve(data);
                             toastr.success("删除" + showName + "成功。");
