@@ -122,9 +122,16 @@ define([], function () {
         var lang = window.localStorage.lang || 'cn';
         $translateProvider.preferredLanguage(lang);
         $translateProvider.useStaticFilesLoader({
-            prefix: 'i18n/',
-            suffix: '.json'
-        });
+            files:[
+                {// 标签
+                    prefix: 'i18n/',
+                    suffix: '.json'
+                },
+                {// 错误码
+                    prefix: 'i18n/errorcode-',
+                    suffix: '.json'
+                }
+            ]});
     }]);
 
     app.config(['$controllerProvider', '$provide', '$httpProvider',
@@ -169,6 +176,13 @@ define([], function () {
             };
         });
 
+        // 支持json注释
+        $httpProvider.defaults.transformResponse = [function (data, headers) {
+            if (typeof data === 'string' && (data.indexOf('//SUPPORT COMMENT') === 0)) {
+                return Hjson.parse(data);
+            }
+            return data;
+        }].concat($httpProvider.defaults.transformResponse);
     }]);
 
 

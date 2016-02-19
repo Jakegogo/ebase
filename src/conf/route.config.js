@@ -1,5 +1,5 @@
 /**
- * 单页面路由配置
+ * 页面路由配置
  * @param path  url路径
  * @param html  静态页面路径(在views目录下)
  * @param requires js文件
