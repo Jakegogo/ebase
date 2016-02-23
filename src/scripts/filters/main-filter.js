@@ -1,7 +1,7 @@
 /**
  * Created by Jake on 1/8 0008.
  */
-define(['app'], function (app) {
+define([platform], function (app) {
 
     /**
      * 国际化过滤器

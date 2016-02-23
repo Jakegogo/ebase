@@ -2,18 +2,25 @@
  * Created by Jake on 1/5 0005.
  */
 
+// 运行平台设置
+var platform = "pc";
+
 require.config({
-    baseUrl: "js" // js根路径
+    baseUrl: "js", // js根路径
+    packages: [
+    {
+        name: 'pc',// platform package name
+        location: 'platform/pc',  // default 'packagename'
+        main: 'app'                // default 'main'
+    }]
 });
 
 require([
-    'app',
+    platform,
     "services/util-service",
     "services/rest-service",
     "directives/util-directive",
-    "directives/main-directive",
-    "filters/main-filter",
-    "controllers/mainController"
+    "filters/main-filter"
 ], function (app) {
     app.start();
 });

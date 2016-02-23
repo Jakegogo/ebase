@@ -136,54 +136,54 @@ define([], function () {
 
     app.config(['$controllerProvider', '$provide', '$httpProvider',
         function ($controllerProvider, $provide, $httpProvider) {
-        app.register = {
-            controller: $controllerProvider.register,
-            factory: $provide.factory,
-            service: $provide.service
-        };
-
-        /**
-         * 检查请求状态是否合法
-         * @param resp Response
-         * @returns {*}
-         */
-        var checkAccessState = function (resp) {
-            var headers = resp.headers();
-            var accessState = headers["access-state"];
-            if (angular.isDefined(accessState) && accessState == "login") {
-                location.href = addContext("login");
-            } else if (angular.isDefined(accessState) && accessState == "unauthorized") {
-                toastr.error("对不起，你没有权限进行此项操作。请联系系统管理员！");
-                location.href = "#/";
-            } else {
-                return resp;
-            }
-        }
-
-        // http请求切面配置
-        $httpProvider.interceptors.push(function ($q) {
-            return {
-                "response": function (resp) {
-                    return checkAccessState(resp);
-                },
-                "responseError": function (rejection) {
-                    var ret = checkAccessState(rejection);
-                    if (angular.isDefined(ret)) {
-                        toastr.error("请求处理失败！");
-                    }
-                    return $q.reject(rejection);
-                }
+            app.register = {
+                controller: $controllerProvider.register,
+                factory: $provide.factory,
+                service: $provide.service
             };
-        });
 
-        // 支持json注释
-        $httpProvider.defaults.transformResponse = [function (data, headers) {
-            if (typeof data === 'string' && (data.indexOf('//SUPPORT COMMENT') === 0)) {
-                return Hjson.parse(data);
+            /**
+             * 检查请求状态是否合法
+             * @param resp Response
+             * @returns {*}
+             */
+            var checkAccessState = function (resp) {
+                var headers = resp.headers();
+                var accessState = headers["access-state"];
+                if (angular.isDefined(accessState) && accessState == "login") {
+                    location.href = addContext("login");
+                } else if (angular.isDefined(accessState) && accessState == "unauthorized") {
+                    toastr.error("对不起，你没有权限进行此项操作。请联系系统管理员！");
+                    location.href = "#/";
+                } else {
+                    return resp;
+                }
             }
-            return data;
-        }].concat($httpProvider.defaults.transformResponse);
-    }]);
+
+            // http请求切面配置
+            $httpProvider.interceptors.push(function ($q) {
+                return {
+                    "response": function (resp) {
+                        return checkAccessState(resp);
+                    },
+                    "responseError": function (rejection) {
+                        var ret = checkAccessState(rejection);
+                        if (angular.isDefined(ret)) {
+                            toastr.error("请求处理失败！");
+                        }
+                        return $q.reject(rejection);
+                    }
+                };
+            });
+
+            // 支持json注释
+            $httpProvider.defaults.transformResponse = [function (data, headers) {
+                if (typeof data === 'string' && (data.indexOf('//SUPPORT COMMENT') === 0)) {
+                    return Hjson.parse(data);
+                }
+                return data;
+            }].concat($httpProvider.defaults.transformResponse);
+        }]);
 
 
     app.config(['$breadcrumbProvider', function($breadcrumbProvider) {
@@ -217,8 +217,16 @@ define([], function () {
         //})
     }]);
 
+    // start 启动回调
     app.start = function () {
-        angular.bootstrap(document, ['eBaseFront']);
+        require([
+            "platform/pc/services/util-service",
+            "platform/pc/directives/main-directive",
+            "platform/pc/directives/util-directive",
+            "platform/pc/controllers/mainController"
+        ], function () {
+            angular.bootstrap(document, ['eBaseFront']);
+        });
     };
 
     return app;

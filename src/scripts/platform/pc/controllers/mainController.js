@@ -4,7 +4,7 @@
 /********************************************
  END: BREAKING CHANGE in AngularJS v1.3.x:
  *********************************************/
-define(['app'], function (app) {
+define([platform], function (app) {
 
     /* Setup App Main Controller */
     app.controller('AppController', ['$scope', '$rootScope', function ($scope, $rootScope) {

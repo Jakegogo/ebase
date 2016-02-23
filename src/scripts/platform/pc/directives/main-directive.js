@@ -1,4 +1,4 @@
-define(['app'], function (app) {
+define([platform], function (app) {
     /***
      GLobal Directives
      ***/

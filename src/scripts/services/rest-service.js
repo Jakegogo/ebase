@@ -1,4 +1,4 @@
-define(["app"], function (app) {
+define([platform], function (app) {
     var restService = function ($http, $q, util) {
 
         /**

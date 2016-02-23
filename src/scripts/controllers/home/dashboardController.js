@@ -1,4 +1,4 @@
-define(['app'], function (app) {
+define([platform], function (app) {
     app.controller('DashboardController',
         ['$rootScope', '$scope', '$http', '$timeout',
         function($rootScope, $scope, $http, $timeout) {
