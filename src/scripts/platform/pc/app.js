@@ -151,7 +151,7 @@ define([], function () {
                 var headers = resp.headers();
                 var accessState = headers["access-state"];
                 if (angular.isDefined(accessState) && accessState == "login") {
-                    location.href = addContext("login");
+                    location.href = "/login.html";
                 } else if (angular.isDefined(accessState) && accessState == "unauthorized") {
                     toastr.error("对不起，你没有权限进行此项操作。请联系系统管理员！");
                     location.href = "#/";

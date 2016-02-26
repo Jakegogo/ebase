@@ -67,7 +67,8 @@
             <div data-ng-include="'view/tpl/theme-panel.html'" data-ng-controller="ThemePanelController" class="theme-panel hidden-xs hidden-sm"> </div>
             <!-- END STYLE CUSTOMIZER -->
             <div class="page-bar">
-                <div ncy-breadcrumb></div>
+                <span class="inline breadcrumb">当前页面:</span>
+                <div ncy-breadcrumb class="inline"></div>
             </div>
             <!-- BEGIN ACTUAL CONTENT -->
             <div ui-view class="fade-in-up" id="viewContext"> </div>

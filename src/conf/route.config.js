@@ -20,9 +20,9 @@ var routeConfig = [
     {
         name:'用户',
         path:'/user',
-        html:'test/test.html',
-        requireJs:['controllers/test/test'],
-        controller: "TestController",
+        html:'user/user.html',
+        requireJs:['controllers/user/userController'],
+        controller: "UserController",
         files:['vendor/checklist-model/checklist-model.js'],
         depends:['checklist-model']
     },

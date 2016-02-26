@@ -60,6 +60,8 @@ gulp.task('images', function() {
 gulp.task('views', function() {
     gulp.src('src/main.html')
         .pipe(gulp.dest('dist'));
+    gulp.src('src/login.html')
+        .pipe(gulp.dest('dist'));
     return gulp.src('src/views/**/*')
         .pipe(gulp.dest('dist/view'));
 });

@@ -163,7 +163,6 @@ define([platform], function (app) {
             procModal: procModal,
             confirm: confirmModal,
             proccessModal: proccessModal,
-            translate: translate
         };
     };
     app.factory("utilService", ["$rootScope", "$modal", '$location', '$q', '$translate', utilService]);

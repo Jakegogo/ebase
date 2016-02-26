@@ -19,6 +19,7 @@ require([
     platform,
     "services/util-service",
     "services/rest-service",
+    "services/common-service",
     "directives/util-directive",
     "filters/main-filter"
 ], function (app) {
