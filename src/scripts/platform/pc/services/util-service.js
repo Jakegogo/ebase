@@ -1,4 +1,4 @@
-define([platform], function (app) {
+define([platform, 'services/common-util'], function (app, baseUtil) {
     var utilService = function ($rootScope, $modal, $location, $q, $translate) {
 
         var confirmScope = $rootScope.$new();
@@ -156,14 +156,23 @@ define([platform], function (app) {
             return defer.promise;
         }
 
-        return {
+        /**
+         * 弹出错误提示
+         * @param msg 提示消息
+         */
+        var alertError = function(msg){
+            toastr.error(msg);
+        };
+
+        return serviceExtend(baseUtil, {
             hideModal: hideModal,
             commonModal: commonModal,
             templateModal: templateModal,
             procModal: procModal,
             confirm: confirmModal,
             proccessModal: proccessModal,
-        };
+            alertError: alertError
+        });
     };
     app.factory("utilService", ["$rootScope", "$modal", '$location', '$q', '$translate', utilService]);
 });

@@ -52,11 +52,22 @@ define([platform], function (app) {
             return key;
         }
 
+        /**
+         * 弹出错误提示
+         * @param msg 提示消息
+         */
+        var alertError = Interface.create(function(msg){
+            // nothing
+        });
+
         return {
             selectedIds: selectedIds,
             buildQueryParam: buildTableQueryParam,
-            translate: translate
+            translate: translate,
+            alertError: alertError
         };
     };
+
     app.factory("utilService", ["$rootScope", "$modal", '$location', '$q', '$translate', utilService]);
+    return utilService;
 });
