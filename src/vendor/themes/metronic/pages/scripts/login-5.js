@@ -20,10 +20,10 @@ var Login = function() {
 
             messages: {
                 username: {
-                    required: "Username is required."
+                    required: "请输入用户名."
                 },
                 password: {
-                    required: "Password is required."
+                    required: "请输入密码."
                 }
             },
 
@@ -46,15 +46,36 @@ var Login = function() {
             },
 
             submitHandler: function(form) {
-                form.submit(); // form validation success, call ajax form submit
+                //form.submit(); // form validation success, call ajax form submit
+                $.ajax({
+                    type: 'post', // 提交方式 get/post
+                    url: '/api/ebase/login', // 需要提交的 url
+                    data: {
+                        'username': $('#username').val(),
+                        'password': $('#password').val()
+                    },
+                    headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
+                    success: function(data) { // data 保存提交后返回的数据，一般为 json 数据
+                        if (data && data.data == 'success') {
+                            location.href = "/";
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorMessage) {
+                        console.log(jqXHR.responseText); // Optional
+                        $('.alert-danger', $('.login-form')).show();
+                        $('.alert-danger span', $('.login-form')).text(jqXHR.responseText);
+                    },
+                });
+                return false; // 阻止表单自动提交事件
             }
         });
 
         $('.login-form input').keypress(function(e) {
+            if ($('.login-form').validate().form()){
+                $('.alert-danger', $('.login-form')).hide();
+            }
             if (e.which == 13) {
-                if ($('.login-form').validate().form()) {
-                    $('.login-form').submit(); //form validation success, call ajax form submit
-                }
+                $('.login-form').submit(); //form validation success, call ajax form submit
                 return false;
             }
         });
@@ -77,6 +98,7 @@ var Login = function() {
             $('.login-form').show();
             $('.forget-form').hide();
         });
+
     }
 
  
@@ -90,9 +112,9 @@ var Login = function() {
 
             // init background slide images
             $('.login-bg').backstretch([
-                "../assets/pages/img/login/bg1.jpg",
-                "../assets/pages/img/login/bg2.jpg",
-                "../assets/pages/img/login/bg3.jpg"
+                "vendor/themes/metronic/pages/img/login/bg1.jpg",
+                "vendor/themes/metronic/pages/img/login/bg2.jpg",
+                "vendor/themes/metronic/pages/img/login/bg3.jpg"
                 ], {
                   fade: 1000,
                   duration: 8000
