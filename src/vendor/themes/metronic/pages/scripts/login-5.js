@@ -4,7 +4,6 @@ var Login = function() {
 
         $('.login-form').validate({
             errorElement: 'span', //default input error message container
-            errorClass: 'help-block', // default input error message class
             focusInvalid: false, // do not focus the last invalid input
             rules: {
                 username: {
@@ -42,7 +41,7 @@ var Login = function() {
             },
 
             errorPlacement: function(error, element) {
-                error.insertAfter(element.closest('.input-icon'));
+                error.insertAfter($('.alert-danger .close', $('.login-form')));
             },
 
             submitHandler: function(form) {
@@ -63,7 +62,7 @@ var Login = function() {
                     error: function(jqXHR, textStatus, errorMessage) {
                         console.log(jqXHR.responseText); // Optional
                         $('.alert-danger', $('.login-form')).show();
-                        $('.alert-danger span', $('.login-form')).text(jqXHR.responseText);
+                        $('.alert-danger span', $('.login-form')).text(JSON.parse(jqXHR.responseText).errorMsg);
                     },
                 });
                 return false; // 阻止表单自动提交事件
@@ -71,13 +70,17 @@ var Login = function() {
         });
 
         $('.login-form input').keypress(function(e) {
-            if ($('.login-form').validate().form()){
-                $('.alert-danger', $('.login-form')).hide();
-            }
             if (e.which == 13) {
-                $('.login-form').submit(); //form validation success, call ajax form submit
+                if ($('.login-form').validate().form()) {
+                    $('.login-form').submit(); //form validation success, call ajax form submit
+                }
                 return false;
             }
+        });
+
+        $('.login-form input').on('input', function() {
+            $('.alert-danger span', $('.login-form')).text('');
+            $('.alert-danger', $('.login-form')).hide();
         });
 
         $('.forget-form input').keypress(function(e) {
