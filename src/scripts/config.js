@@ -119,7 +119,7 @@ define([platform, "services/common-util"], function (app, util) {
                 if (angular.isDefined(accessState) && accessState == "login") {
                     location.href = "/login.html";
                 } else if (angular.isDefined(accessState) && accessState == "unauthorized") {
-                    util.alertError("对不起，你没有权限进行此项操作。请联系系统管理员！");
+                    app.util.alertError("对不起，你没有权限进行此项操作。请联系系统管理员！");
                     location.href = "#/";
                 } else {
                     return resp;
@@ -135,7 +135,7 @@ define([platform, "services/common-util"], function (app, util) {
                     "responseError": function (rejection) {
                         var ret = checkAccessState(rejection);
                         if (angular.isDefined(ret)) {
-                            toastr.error("请求处理失败！");
+                            app.util.alertError("请求处理失败！");
                         }
                         return $q.reject(rejection);
                     }

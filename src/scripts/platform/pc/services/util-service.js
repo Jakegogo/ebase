@@ -165,12 +165,50 @@ define([platform, 'services/common-util'], function (app, baseUtil) {
         };
 
         return serviceExtend(baseUtil, {
+            /**
+             * 隐藏弹窗
+             * @param modal 弹窗对象
+             */
             hideModal: hideModal,
+            /**
+             * 普通弹窗，从html加载内容
+             * @param parentScope 父容器Scope
+             * @param title 标题
+             * @param contentUrl html的url
+             * @param init 弹窗初始化回调(显示前)
+             */
             commonModal: commonModal,
+            /**
+             * script模板弹窗
+             * @param parentScope 父容器Scope
+             * @param title 标题
+             * @param tempId 模板id, 如<script type="text/ng-template" id="modal/common.tpl.html">
+             * @param init 弹窗初始化回调(显示前)
+             */
             templateModal: templateModal,
+            /**
+             * 进度弹窗
+             * @param parentScope 父容器Scope
+             * @param title 标题
+             */
             procModal: procModal,
+            /**
+             * 确认弹窗
+             * @param content 会话内容
+             * @param okFn 点击确定的回调函数
+             */
             confirm: confirmModal,
+            /**
+             * 进度弹窗(带进度文字)
+             * @param parentScope 父容器scope
+             * @param title 标题
+             * @returns {*}
+             */
             proccessModal: proccessModal,
+            /**
+             * 弹出错误提示
+             * @param msg 提示消息
+             */
             alertError: alertError
         });
     };

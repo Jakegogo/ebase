@@ -22,6 +22,7 @@ define([platform, 'services/common-service'], function (app, baseService) {
         return serviceExtend(baseService, {
             /**
              * 初始化表格
+             * (回调)
              */
             initTable:initTable
         });

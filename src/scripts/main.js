@@ -71,7 +71,12 @@ Interface.create = function(defaults) {
     return proxy;
 }
 
-// 继承的工具方法
+/**
+ * 继承的工具方法
+ * @param dst 目标(子)对象
+ * @param src 源(父)对象
+ * @returns {*} dst
+ */
 function extend(dst) {
     var objs = [].slice.call(arguments, 1);
     for (var i = 0, ii = objs.length; i < ii; ++i) {

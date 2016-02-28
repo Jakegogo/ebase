@@ -4,7 +4,14 @@
 define([platform], function (app) {
     var commonService = function ($http, $q, util, rest) {
 
-        // 初始化rest请求
+        /**
+         * 初始化rest请求
+         * @param $scope 当前作用域
+         * @param config 配置项 {url: 基本URL，必填,
+                    alias:别名,
+                    name: 提示的名称，一般为模块名，必填,
+                    }
+         */
         var initRest = function ($scope, config) {
             var alias = config.alias;
 
@@ -33,10 +40,16 @@ define([platform], function (app) {
         return {
             /**
              * 初始化rest请求
+             * @param $scope 当前作用域
+             * @param config 配置项 {url: 基本URL，必填,
+                    alias:别名,
+                    name: 提示的名称，一般为模块名，必填,
+                    }
              */
             initRest: initRest,
             /**
              * 初始化表格
+             * (回调接口)
              */
             initTable:initTable
         };
