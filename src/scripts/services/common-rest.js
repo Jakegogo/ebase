@@ -294,5 +294,5 @@ define([platform], function (app) {
     };
 
     app.factory("restService", ["$http", "$q", "utilService", restService]);
-    return;
+    return restService;
 });

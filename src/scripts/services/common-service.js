@@ -32,7 +32,7 @@ define([platform], function (app) {
 
         }
 
-        // 初始化表格
+        // 初始化表格Table回调
         var initTable = Interface.create(function($scope, config){
             // nothing
         });

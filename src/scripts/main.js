@@ -39,6 +39,10 @@ require([
 /**
  * 实现service继承
  * <li>
+ *     使用requirejs管理继承关系
+ * </li>
+ * <li>
+ *     使用方法如:
  *     define(['parentService'], function (parentService) {
  *       var subService = function ($rootScope) {
  *          return serviceExtend(parentService, {
@@ -47,6 +51,10 @@ require([
  *       }
  *       app.factory("subService", [subService]);
  *      });
+ * </li>
+ * <li>
+ * 注意:如果没有扩展(继承)service将注册和使用父类的service，
+ * 使用了相同名字的子service和父类之前注册的service对象将不会是同一个对象,而是覆盖了之前的注册
  * </li>
  * @param parent 父service定义
  * @param instance 子service定义

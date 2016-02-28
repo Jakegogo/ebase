@@ -60,7 +60,7 @@ define([platform], function (app) {
             // nothing
         });
 
-        return app.util = {// 解决app.config()内无法使用service的问题
+        return app.util = {// 解决app.config()内无法使用service的问题 (app.util=)
             /**
              * 获取多选行的Id
              * @param items {Array} 模型数组
