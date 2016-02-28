@@ -2,8 +2,12 @@
 {
   // side bar
   "main_sidebar_100001":"DashBoard",
-  "main_sidebar_100002":"Security",
+  "main_sidebar_100002":"System Manage",
   "main_sidebar_100003":"User",
   "main_sidebar_100004":"Role",
-  "main_sidebar_100005":"Permition"
+  "main_sidebar_100005":"Permition",
+
+
+  // Customization
+  "main_sidebar_900001":"Customization"
 }

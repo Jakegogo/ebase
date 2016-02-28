@@ -1,0 +1,146 @@
+<style type="text/css">
+    .tableManager .ng-table-pager {
+        display: none;
+    }
+</style>
+<div class="main-box container clearfix" style="margin-left:-10px;">
+    <div id="divLeft" class="col-lg-2">
+        <div class="panel panel-default" style="margin:0 0">
+            <div class="panel-heading">数据表</div>
+            <div class="list-group">
+                <div class="btn-group btn-group-justified" style="padding: 5px">
+                    <a href="javascript:;" ng-click="showAdd()" class="not-active btn  btn-default">新增</a>
+                    <a href="javascript:;" ng-click="confirmAndDel()"
+                       class="not-active btn {{nodeTree.$selectOneTable?'':'disabled'}}  btn-default">删除</a>
+                </div>
+                <hr style="margin:0px"/>
+                <div class="list-group" style="height:auto;overflow-y:auto;overflow-x:hidden;">
+                    <ul id="table_tree" class="ztree"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-10 ">
+        <div class="row ">
+            <form class="form-inline table-toolbar ng-pristine ng-valid" w5c-form-validate="vm" name="form">
+                <div class="form-group">
+                    <label for="tableName"><span class="red">*</span> 数据表：</label>
+                    <input id="tableName" class="form-control" type="text" ng-change="markModified(curTable);"
+                           ng-model="curTable.tableName"
+                           ng-disabled="curTable == null || curTable.deleted == true || !showField" required>
+                </div>
+                <button type="button" class="btn btn-primary" ng-click="showAddField()"
+                        ng-disabled="curTable == null || curTable.deleted == true || !showField">新增字段
+                </button>
+                <button type="button" class="btn btn-primary" ng-click="confirmAndDelFields()"
+                        ng-disabled="curTable == null || curTable.deleted == true || !showField">删除字段
+                </button> |
+                <button type="button" class="btn btn-primary" ng-click="showQueryData()"
+                        ng-disabled="curTable == null || curTable.deleted == true">查询数据
+                </button>
+                <div class="form-group pull-right">
+                    <button type="button" class="btn btn-sm btn-default" data-template="ng-table/column/toggle.html"
+                            data-container="body" data-auto-close="1" placement="bottom" bs-popover>
+                        <i class="fa fa-th-list"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- 工具条结束 -->
+        <div class="loading-container">
+            <div ng-show="showField" class="tableManager">
+                <div class="loading" ng-show="fieldModelsTable.settings().$loading"></div>
+                <!-- 表格开始 -->
+                <table ng-table="fieldModelsTable" class="table table-striped table-bordered table-hover text-center">
+                    <tbody>
+                    <tr ng-repeat="fieldModel in $data"
+                        ng-click="fieldModel.$selected = !fieldModel.$selected"
+                        ng-class="{'active': fieldModel.$selected}" ng-if="fieldModel.opType != tableOpType.Drop">
+                        <td width="30" data-title="&nbsp;" header="'ng-table/headers/checkbox.html'">
+                            <input type="checkbox" ng-checked="fieldModel.$selected;"/>
+                        </td>
+                        <td data-title="fieldCols[0].title" align="center">{{fieldModel.id}}</td>
+                        <td data-title="fieldCols[1].title" align="center" sortable="'fieldName'">
+                            {{fieldModel.fieldName}}
+                        </td>
+                        <td data-title="fieldCols[2].title" align="center" sortable="'colName'">{{fieldModel.colName}}
+                        </td>
+                        <td data-title="fieldCols[3].title" align="center">{{fieldModel.fieldDataType}}</td>
+                        <td data-title="fieldCols[4].title" align="center">{{fieldModel.fieldLength}}</td>
+                        <td data-title="fieldCols[5].title" align="center">{{fieldModel.defaultValue}}</td>
+                        <td data-title="fieldCols[6].title" align="center">{{fieldModel.notNull}}</td>
+                        <td data-title="fieldCols[13].title" align="center">{{fieldModel.autoIncrement}}</td>
+                        <td data-title="fieldCols[7].title" align="center">{{fieldModel.refTableName}}</td>
+                        <td data-title="fieldCols[8].title" align="center">{{fieldModel.refFieldName}}</td>
+                        <td data-title="fieldCols[9].title" align="center">{{fieldModel.pk}}</td>
+                        <td data-title="fieldCols[10].title" align="center">{{fieldModel.indexType}}</td>
+                        <td data-title="fieldCols[11].title" align="center">{{fieldModel.fieldComment}}</td>
+                        <td data-title="fieldCols[12].title" width="100">
+                            <a href="javascript:;" class="btn btn-warning btn-xs" ng-click="showEditField(fieldModel)"
+                               title="编辑"><i class="fa fa-pencil fa-fw"></i></a>
+                            <a href="javascript:;" class="btn btn-danger btn-xs"
+                               ng-click="confirmAndDelField(fieldModel)"
+                               title="删除"><i class="fa fa-remove fa-fw"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!-- 表格结束 -->
+                <div id="divMiddle" class="col-lg-8" ng-show="curTable.notSaved">
+                    <button type="button" class="btn btn-primary" ng-click="saveModifyTable(this,this)">保存</button>
+                </div>
+            </div>
+
+            <div ng-show="!showField && curTable != null">
+                <form class="form-inline table-toolbar ng-pristine ng-valid" w5c-form-validate="vm" name="form1">
+                    <div class="row">
+                        <label for="originalSql" class="col-md-1">SQL</label>
+                        <div class="col-md-10">
+                            <textarea id="originalSql"class="form-control" ng-model="query.originalSql" style="width: 100%;" rows="3"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="paramMaps" class="col-md-1">参数:</label>
+                        <div class="col-md-10">
+                            <textarea id="paramMaps"class="form-control" ng-model="query.paramMaps" style="width: 100%;" rows="1"></textarea>
+                        </div>
+                    </div>
+                    <div class="row col-lg-8">
+                        <button type="button" class="btn btn-primary" ng-click="doQueryData()">查询
+                        </button>
+                        <button type="button" class="btn btn-primary" ng-click="doUpdateData()">执行
+                        </button>
+                    </div>
+                </form>
+                <!-- 表格开始 -->
+                <table ng-table="userDataTable" class="table table-striped table-bordered table-hover text-center">
+                    <thead>
+                        <th><input type="checkbox" ng-checked="selectAll.checked" /></th>
+                        <th ng-repeat="fieldValue in $data[0].fieldValues" align="center" ng-if="fieldValue.name != null">{{fieldValue.name}}</th>
+                        <th>操作</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="userData in $data"
+                        ng-click="tpTableRowClick(userData)"
+                        ng-class="{'active': userData.$selected}">
+                        <td width="30">
+                            <input type="checkbox" ng-checked="userData.$selected;" />
+                        </td>
+
+                        <td ng-repeat="fieldValue in userData.fieldValues" align="center" ng-if="fieldValue.name != null">{{fieldValue.value}}</td>
+                        <td width="100">
+                            <a href="javascript:;" class="btn btn-warning btn-xs" ng-click="showEditData(userData)" title="编辑"><i class="fa fa-pencil fa-fw"></i></a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>

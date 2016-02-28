@@ -11,7 +11,7 @@ var App = function() {
 
     var resizeHandlers = [];
 
-    var assetsPath = '../vendor/themes/';
+    var assetsPath = '../vendor/themes/metronic/';
 
     var globalImgPath = 'global/img/';
 

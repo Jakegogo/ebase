@@ -34,5 +34,14 @@ var routeConfig = [
         controller: "TestController",
         files:['vendor/checklist-model/checklist-model.js'],
         depends:['checklist-model']
+    },
+    {
+        name:'数据表',
+        path:'/tablelist',
+        html:'system/tablelist.html',
+        requireJs:['controllers/test/test'],
+        controller: "TestController",
+        files:['vendor/checklist-model/checklist-model.js'],
+        depends:['checklist-model']
     }
 ]

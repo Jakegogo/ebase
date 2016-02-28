@@ -2,8 +2,12 @@
 {
   // 菜单栏
   "main_sidebar_100001":"主页",
-  "main_sidebar_100002":"权限管理",
+  "main_sidebar_100002":"系统管理",
   "main_sidebar_100003":"用户管理",
   "main_sidebar_100004":"角色管理",
-  "main_sidebar_100005":"权限管理"
+  "main_sidebar_100005":"权限管理",
+
+  // 定制化平台
+  "main_sidebar_900001":"定制化平台"
+
 }
