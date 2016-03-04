@@ -60,6 +60,7 @@ require([
  * @param instance 子service定义
  */
 function serviceExtend(parent, instance) {
+    // 实现Interface,同时将子对象方法覆盖到父对象(反向)
     return extend(
         parent.apply(serviceExtend.caller.arguments),
         instance);
@@ -99,7 +100,7 @@ function extend(dst) {
             var dest = dst[key];
             if (dest && dest.prototype.real) {
                 // 使用代理方法
-                dest['real'] = src;
+                dest.real = src;
             } else {
                 dst[key] = src;
             }
