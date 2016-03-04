@@ -73,7 +73,7 @@ var Interface = {};
  */
 Interface.create = function(defaults) {
     var proxy = function() {
-        return proxy.real.apply(this, arguments);
+        return (proxy.real || proxy.prototype.real).apply(this, arguments);
     }
     proxy.prototype.real = defaults || function(){};
     return proxy;

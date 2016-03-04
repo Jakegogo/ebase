@@ -12,7 +12,7 @@ define([platform], function (app) {
                     name: 提示的名称，一般为模块名，必填,
                     }
          */
-        var initRest = function ($scope, config) {
+        var initRest = Interface.create(function ($scope, config) {
             var alias = config.alias;
 
             // 初始化查询参数
@@ -30,7 +30,7 @@ define([platform], function (app) {
 
             }
 
-        }
+        });
 
         // 初始化表格Table回调
         var initTable = Interface.create(function($scope, config){
